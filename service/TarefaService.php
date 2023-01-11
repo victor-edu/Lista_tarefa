@@ -29,9 +29,9 @@ class TarefaService {
         return $tarefaRegistrada;
 
     }
-    public function deletarTarefa(Tarefa $tarefa):void
+    public function deletarTarefa($id):void
     {
-        $sql = "DELETE FROM tasks_db.tarefas WHERE id = '".$tarefa->getId()."'";
+        $sql = "DELETE FROM tasks_db.tarefas WHERE id = '".$id."'";
         $result = mysqli_query($this->conexao, $sql);
         if(!$result)
          die("Falha ao executar o comando:" . mysqli_error($this->conexao));
@@ -41,19 +41,17 @@ class TarefaService {
         // fecha a conexão
         mysqli_close($this->conexao);   
     }
-    public function atualizarTarefa(Tarefa $tarefa):Tarefa
+    public function atualizarTarefa($tituloAtualiza,$dataInicioAtualiza,$dataFinalAtualiza,$idTarefa)
     {
-        $sql = "UPDATE tasks_db.tarefas SET titulo = '".$tarefa->getTitulo()."', status = '".$tarefa->getStatusId()."' WHERE id = '".$tarefa->getId()."'";
+        $sql = "UPDATE tasks_db.tarefas SET titulo = '".$tituloAtualiza."', data_inicio = '".$dataInicioAtualiza."', data_fim= '".$dataFinalAtualiza."' WHERE id = '".$idTarefa."'";
         $result = mysqli_query($this->conexao, $sql);
         if(!$result)
          die("Falha ao executar o comando: " . mysqli_error($this->conexao));
         else
-            echo "Dados editados com sucesso.";
+        header("Location: http://localhost:8000/site/site-tarefa.php");
 
         // fecha a conexão
         mysqli_close($this->conexao);  
-        
-        return $tarefa;
     }
     public function buscarTarefa($id):Tarefa
     {
@@ -73,11 +71,20 @@ class TarefaService {
     }
     public function buscaPorUsuario($id)
     {
-        $sql = "SELECT t.id, t.titulo, t.data_inicio, t.data_fim, st.descricao as status FROM tarefas as t
-        inner join status_tarefas as st on st.id = t.status_tarefas_id where usuarios_id = $id";
+        $sql = "SELECT t.id, t.titulo, t.data_inicio, t.data_fim, t.status_tarefas_id , st.descricao as status FROM tarefas as t
+        inner join status_tarefas as st on st.id = t.status_tarefas_id where usuarios_id = $id ORDER BY t.id DESC";
         $resultQuery = mysqli_query( $this->conexao, $sql ) or die(' Erro na query:' . $sql . ' ' . mysqli_error($this->conexao) );
         return mysqli_fetch_all($resultQuery, MYSQLI_ASSOC);
         
+    }
+    public function atualizarStatus($status, $idTarefa)
+    {
+        $sql = "UPDATE tarefas SET status_tarefas_id = '".$status."' WHERE id = '".$idTarefa."'";
+        $result = mysqli_query($this->conexao, $sql);
+        if(!$result)
+         die("Falha ao executar o comando: " . mysqli_error($this->conexao));
+        // fecha a conexão
+        mysqli_close($this->conexao);  
     }
 
 }

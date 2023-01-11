@@ -8,6 +8,7 @@
   <title>Formulário de Login e Registro com HTML5 e CSS3</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <link rel="stylesheet" type="text/css" href="site/css/style.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
   <div class="container" >
@@ -17,7 +18,7 @@
     <div class="content">      
       <!--FORMULÁRIO DE LOGIN-->
       <div id="login">
-        <form method="post" action="controladores/LoginController.php"> 
+        <form method="post" action="controladores/loginController.php"> 
           <h1>Login</h1> 
           
           <p> 
@@ -47,7 +48,7 @@
  
       <!--FORMULÁRIO DE CADASTRO-->
       <div id="cadastro">
-        <form method="POST" action="controladores/UsuarioSalvarController.php"> 
+        <form method="POST" action="controladores/usuarioSalvarController.php"> 
           <h1>Cadastro</h1> 
            
           <p> 
@@ -78,4 +79,7 @@
     </div>
   </div>  
 </body>
+
+
+
 </html>

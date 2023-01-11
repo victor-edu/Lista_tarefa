@@ -9,7 +9,7 @@
 
   $usuarioService = new UsuarioService($conexao);
   $usuarioService->registrar(new Usuario($nome,$email,$senha));
-  header("Location: http:8000//localhost/projeto");
+  header("Location: http://localhost:8000/");
 
 
       
